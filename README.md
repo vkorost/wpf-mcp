@@ -10,7 +10,7 @@ This matters because desktop applications still power critical workflows, and th
 
 WPF MCP Inspector fixes this for WPF by embedding an HTTP server directly inside any WPF application. One call and the entire UI becomes accessible as structured JSON data. AI agents get the same powers over WPF apps that browser DevTools give over web apps: read the visual tree, inspect element state, execute actions by name, and capture screenshots.
 
-This is the same approach used in the [java-swing-mcp](https://github.com/vkorost/java-swing-mcp) project, which does the same for Java Swing applications. For a deeper discussion of why fat client applications are invisible to AI agents and how this pattern addresses it, see [The Fat Client Problem](docs/fat_client_rewrite_essay.md) essay and the [Architecture Deep-Dive](https://github.com/vkorost/java-swing-mcp/blob/master/docs/ARCHITECTURE.md) in that project.
+This is the same approach used in the [java-swing-mcp](https://github.com/vkorost/java-swing-mcp) project, which does the same for Java Swing applications. For a deeper discussion of why fat client applications are invisible to AI agents and how this pattern addresses it, see [The Fat Client Problem](docs/fat_client_rewrite_essay.md) essay.
 
 The port number 9222 is intentional: the same default port used by Chrome DevTools Protocol.
 
