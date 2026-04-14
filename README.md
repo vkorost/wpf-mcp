@@ -10,9 +10,13 @@ This matters because desktop applications still power critical workflows, and th
 
 WPF MCP Inspector fixes this for WPF by embedding an HTTP server directly inside any WPF application. One call and the entire UI becomes accessible as structured JSON data. AI agents get the same powers over WPF apps that browser DevTools give over web apps: read the visual tree, inspect element state, execute actions by name, and capture screenshots.
 
-This is the same approach used in the [java-swing-mcp](https://github.com/vkorost/java-swing-mcp) project, which does the same for Java Swing applications. For a deeper discussion of why fat client applications are invisible to AI agents and how this pattern addresses it, see [The Fat Client Problem](https://github.com/vkorost/java-swing-mcp/blob/master/docs/fat_client_rewrite_essay.md) essay and the [Architecture Deep-Dive](https://github.com/vkorost/java-swing-mcp/blob/master/docs/ARCHITECTURE.md) in that project.
+This is the same approach used in the [java-swing-mcp](https://github.com/vkorost/java-swing-mcp) project, which does the same for Java Swing applications. For a deeper discussion of why fat client applications are invisible to AI agents and how this pattern addresses it, see [The Fat Client Problem](docs/fat_client_rewrite_essay.md) essay and the [Architecture Deep-Dive](https://github.com/vkorost/java-swing-mcp/blob/master/docs/ARCHITECTURE.md) in that project.
 
 The port number 9222 is intentional: the same default port used by Chrome DevTools Protocol.
+
+## Video Overview
+
+[![WPF MCP Inspector: Giving AI Agents DevTools for Desktop Applications](https://img.youtube.com/vi/YZI6vZ9xh0E/maxresdefault.jpg)](https://www.youtube.com/watch?v=YZI6vZ9xh0E)
 
 ## Real-World Usage
 
@@ -97,9 +101,45 @@ This creates a tight feedback loop where Claude Code can build, launch, interact
 
 ## Documentation
 
-- [API Reference](docs/api-reference.md) - full endpoint documentation with examples
-- [Integration Guide](docs/integration-guide.md) - step-by-step setup for your WPF app
-- [Claude Code Testing](docs/claude-code-testing.md) - using the inspector with Claude Code
+- [API Reference](docs/api-reference.md) — full endpoint documentation with request/response examples
+- [Integration Guide](docs/integration-guide.md) — step-by-step setup for your WPF app
+- [Claude Code Testing](docs/claude-code-testing.md) — using the inspector with Claude Code
+- [Architecture Diagrams](docs/diagrams.md) — Mermaid diagrams of runtime flow, class structure, thread safety, and data flow
+- [The Fat Client Problem](docs/fat_client_rewrite_essay.md) — essay on why desktop apps are invisible to AI agents and how this pattern fixes it
+
+## Project Structure
+
+```
+wpf-mcp/
+├── WpfMcpInspector.sln                    # Solution file
+├── README.md                              # This file
+├── LICENSE                                # MIT license
+├── .gitignore                             # Build artifacts, IDE files
+│
+├── src/WpfMcpInspector/                   # Library source (embed this in your app)
+│   ├── WpfMcpInspector.csproj             # .NET 8 WPF class library
+│   ├── McpServer.cs                       # HTTP server (HttpListener), request routing, lifecycle
+│   ├── TreeWalker.cs                      # Visual tree traversal, stable ID assignment, element lookup
+│   ├── ComponentInspector.cs              # Per-type state extraction (TextBox, ComboBox, DataGrid, etc.)
+│   ├── ActionExecutor.cs                  # UI action execution (click, type, select, menu, check)
+│   ├── ScreenshotCapture.cs               # RenderTargetBitmap capture, PNG encoding, base64 output
+│   └── Models.cs                          # Data models, request/response records, AppStateProvider delegate
+│
+├── samples/SimpleWpfApp/                  # Minimal sample app demonstrating MCP integration
+│   ├── SimpleWpfApp.csproj                # References WpfMcpInspector as project dependency
+│   ├── App.xaml                           # Application definition
+│   ├── App.xaml.cs                        # Creates McpServer on startup, disposes on exit
+│   ├── MainWindow.xaml                    # Sample UI: TextBox, Button, ComboBox, CheckBox, ListBox, Menu
+│   └── MainWindow.xaml.cs                 # Click handlers, form logic for testing
+│
+└── docs/                                  # Documentation and visual assets
+    ├── api-reference.md                   # Complete endpoint docs with curl examples and JSON schemas
+    ├── integration-guide.md               # How to add WpfMcpInspector to your own WPF project
+    ├── claude-code-testing.md             # Workflow for using Claude Code with the MCP server
+    ├── diagrams.md                        # Mermaid architecture diagrams (runtime, classes, threading)
+    ├── fat_client_rewrite_essay.md        # Essay: why desktop apps are black boxes to AI agents
+    └── wpf-mcp.gif                        # Architecture overview diagram
+```
 
 ## Building
 
