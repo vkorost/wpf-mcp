@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WpfMcpInspector</RootNamespace>
+    <AssemblyName>WpfMcpInspector</AssemblyName>
+    <Description>Embed a localhost HTTP inspection server in any WPF application for AI-assisted testing and UI automation.</Description>
+    <Authors>WpfMcpInspector Contributors</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/user/wpf-mcp-inspector</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/user/wpf-mcp-inspector</RepositoryUrl>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+</Project>
