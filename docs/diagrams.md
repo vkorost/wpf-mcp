@@ -93,8 +93,8 @@ sequenceDiagram
     Render->>UI: Render(window)
     Render-->>Disp: Bitmap pixels
     Disp->>Disp: PngBitmapEncoder → byte[]
-    Disp->>Disp: Base64 → data:image/png;base64,...
-    Disp-->>HTTP: ScreenshotResponse(dataUri, w, h)
+    Disp->>Disp: Base64-encode PNG as data URI
+    Disp-->>HTTP: ScreenshotResponse(dataUri + w + h)
     HTTP-->>Client: 200 OK — base64-encoded PNG
 
     Note over Client,Render: === GET /health — Server Status ===
@@ -329,7 +329,7 @@ sequenceDiagram
     Agent->>MCP: GET /screenshot
     MCP->>MCP: Dispatcher.Invoke(Capture)
     MCP->>MCP: RenderTargetBitmap → PNG → Base64
-    MCP-->>Agent: data:image/png;base64,iVBOR...
+    MCP-->>Agent: Base64-encoded PNG data URI
 
     Note over Agent,List: Step 5: Submit the form
     Agent->>MCP: POST /action<br/>{"action":"click", "target":"SubmitButton"}
