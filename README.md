@@ -113,6 +113,10 @@ To try the sample app:
 dotnet run --project samples/SimpleWpfApp/SimpleWpfApp.csproj
 ```
 
+## Architecture Overview
+
+![WPF MCP Inspector Architecture](docs/wpf-mcp.gif)
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
