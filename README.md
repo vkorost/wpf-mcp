@@ -16,7 +16,7 @@ The port number 9222 is intentional: the same default port used by Chrome DevToo
 
 ## Video Overview
 
-[![WPF MCP Inspector: Giving AI Agents DevTools for Desktop Applications](https://img.youtube.com/vi/YZI6vZ9xh0E/maxresdefault.jpg)](https://www.youtube.com/watch?v=YZI6vZ9xh0E)
+[WPF MCP Inspector: Giving AI Agents DevTools for Desktop Applications](https://www.youtube.com/watch?v=YZI6vZ9xh0E)
 
 ## Real-World Usage
 
@@ -109,37 +109,34 @@ This creates a tight feedback loop where Claude Code can build, launch, interact
 
 ## Project Structure
 
-```
-wpf-mcp/
-├── WpfMcpInspector.sln                    # Solution file
-├── README.md                              # This file
-├── LICENSE                                # MIT license
-├── .gitignore                             # Build artifacts, IDE files
-│
-├── src/WpfMcpInspector/                   # Library source (embed this in your app)
-│   ├── WpfMcpInspector.csproj             # .NET 8 WPF class library
-│   ├── McpServer.cs                       # HTTP server (HttpListener), request routing, lifecycle
-│   ├── TreeWalker.cs                      # Visual tree traversal, stable ID assignment, element lookup
-│   ├── ComponentInspector.cs              # Per-type state extraction (TextBox, ComboBox, DataGrid, etc.)
-│   ├── ActionExecutor.cs                  # UI action execution (click, type, select, menu, check)
-│   ├── ScreenshotCapture.cs               # RenderTargetBitmap capture, PNG encoding, base64 output
-│   └── Models.cs                          # Data models, request/response records, AppStateProvider delegate
-│
-├── samples/SimpleWpfApp/                  # Minimal sample app demonstrating MCP integration
-│   ├── SimpleWpfApp.csproj                # References WpfMcpInspector as project dependency
-│   ├── App.xaml                           # Application definition
-│   ├── App.xaml.cs                        # Creates McpServer on startup, disposes on exit
-│   ├── MainWindow.xaml                    # Sample UI: TextBox, Button, ComboBox, CheckBox, ListBox, Menu
-│   └── MainWindow.xaml.cs                 # Click handlers, form logic for testing
-│
-└── docs/                                  # Documentation and visual assets
-    ├── api-reference.md                   # Complete endpoint docs with curl examples and JSON schemas
-    ├── integration-guide.md               # How to add WpfMcpInspector to your own WPF project
-    ├── claude-code-testing.md             # Workflow for using Claude Code with the MCP server
-    ├── diagrams.md                        # Mermaid architecture diagrams (runtime, classes, threading)
-    ├── fat_client_rewrite_essay.md        # Essay: why desktop apps are black boxes to AI agents
-    └── wpf-mcp.gif                        # Architecture overview diagram
-```
+**Root**
+- [WpfMcpInspector.sln](WpfMcpInspector.sln) — Solution file
+- [LICENSE](LICENSE) — MIT license
+- [.gitignore](.gitignore) — Build artifacts, IDE files
+
+**src/WpfMcpInspector/** — Library source (embed this in your app)
+- [WpfMcpInspector.csproj](src/WpfMcpInspector/WpfMcpInspector.csproj) — .NET 8 WPF class library
+- [McpServer.cs](src/WpfMcpInspector/McpServer.cs) — HTTP server (HttpListener), request routing, lifecycle
+- [TreeWalker.cs](src/WpfMcpInspector/TreeWalker.cs) — Visual tree traversal, stable ID assignment, element lookup
+- [ComponentInspector.cs](src/WpfMcpInspector/ComponentInspector.cs) — Per-type state extraction (TextBox, ComboBox, DataGrid, etc.)
+- [ActionExecutor.cs](src/WpfMcpInspector/ActionExecutor.cs) — UI action execution (click, type, select, menu, check)
+- [ScreenshotCapture.cs](src/WpfMcpInspector/ScreenshotCapture.cs) — RenderTargetBitmap capture, PNG encoding, base64 output
+- [Models.cs](src/WpfMcpInspector/Models.cs) — Data models, request/response records, AppStateProvider delegate
+
+**samples/SimpleWpfApp/** — Minimal sample app demonstrating MCP integration
+- [SimpleWpfApp.csproj](samples/SimpleWpfApp/SimpleWpfApp.csproj) — References WpfMcpInspector as project dependency
+- [App.xaml](samples/SimpleWpfApp/App.xaml) — Application definition
+- [App.xaml.cs](samples/SimpleWpfApp/App.xaml.cs) — Creates McpServer on startup, disposes on exit
+- [MainWindow.xaml](samples/SimpleWpfApp/MainWindow.xaml) — Sample UI: TextBox, Button, ComboBox, CheckBox, ListBox, Menu
+- [MainWindow.xaml.cs](samples/SimpleWpfApp/MainWindow.xaml.cs) — Click handlers, form logic for testing
+
+**docs/** — Documentation and visual assets
+- [api-reference.md](docs/api-reference.md) — Complete endpoint docs with curl examples and JSON schemas
+- [integration-guide.md](docs/integration-guide.md) — How to add WpfMcpInspector to your own WPF project
+- [claude-code-testing.md](docs/claude-code-testing.md) — Workflow for using Claude Code with the MCP server
+- [diagrams.md](docs/diagrams.md) — Mermaid architecture diagrams (runtime, classes, threading)
+- [fat_client_rewrite_essay.md](docs/fat_client_rewrite_essay.md) — Essay: why desktop apps are black boxes to AI agents
+- [wpf-mcp.gif](docs/wpf-mcp.gif) — Architecture overview diagram
 
 ## Building
 
